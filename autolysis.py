@@ -10,6 +10,7 @@
 #   "openai",
 #   "numpy",
 #   "scipy",
+#   "tenacity"
 # ]
 # ///
 
@@ -23,6 +24,7 @@ import chardet
 from pathlib import Path
 import asyncio
 import scipy.stats as stats
+from tenacity import retry, stop_after_attempt
 
 # Constants
 API_URL = "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions"
@@ -46,6 +48,7 @@ async def load_data(file_path):
     print(f"Detected file encoding: {encoding}")
     return pd.read_csv(file_path, encoding=encoding)
 
+@retry
 async def async_post_request(headers, data):
     """Async function to make HTTP requests."""
     async with httpx.AsyncClient() as client:
