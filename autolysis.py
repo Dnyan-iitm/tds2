@@ -30,7 +30,7 @@ API_URL = "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions"
 # Ensure token is retrieved from environment variable
 def get_token():
     try:
-        return os.environ["AI_PROXY"]
+        return os.environ["AIPROXY_TOKEN"]
     except KeyError as e:
         print(f"Error: Environment variable '{e.args[0]}' not set.")
         raise
